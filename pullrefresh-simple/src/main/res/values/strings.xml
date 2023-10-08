@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="prl_simple_header_pulling">下拉可以刷新</string>
+    <string name="prl_simple_header_ready">松开立即刷新</string>
+    <string name="prl_simple_header_loading">正在刷新</string>
+    <string name="prl_simple_header_loaded">刷新完成</string>
+    <string name="prl_simple_header_failed">刷新失败</string>
+    <string name="prl_simple_header_second_ready">松开进入二楼</string>
+</resources>

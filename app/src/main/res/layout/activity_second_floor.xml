@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<me.reezy.cosmo.pullrefresh.PullRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/refresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipChildren="false"
+    tools:background="@android:color/holo_green_dark"
+    tools:context="com.demo.app.MainActivity">
+
+
+    <me.reezy.cosmo.pullrefresh.simple.SimpleHeader
+        android:layout_width="match_parent"
+        android:clipChildren="false"
+        android:textColor="#eee"
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:id="@+id/second_floor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/wallpaper"/>
+
+            <ImageView
+                android:id="@+id/btn_close"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:layout_margin="10dp"
+                android:scaleType="center"
+                app:tint="@color/white"
+                android:src="@drawable/baseline_arrow_back_24"/>
+
+            <Button
+                android:id="@+id/btn_test"
+                android:layout_width="120dp"
+                android:layout_height="44dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="end"
+                android:text="click" />
+        </FrameLayout>
+    </me.reezy.cosmo.pullrefresh.simple.SimpleHeader>
+
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:alpha="0.5"
+                android:background="@android:color/holo_orange_light"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/holo_blue_bright"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+            <include layout="@layout/layout_content" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</me.reezy.cosmo.pullrefresh.PullRefreshLayout>
