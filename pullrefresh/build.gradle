@@ -2,6 +2,6 @@
 apply from: "$buildGradlePath/build-library-android.gradle"
 
 dependencies {
-    api 'androidx.appcompat:appcompat:1.6.1'
-    api 'com.google.android.material:material:1.9.0'
+    api libs.androidx.core
+    api libs.material
 }

@@ -16,7 +16,7 @@ dependencyResolutionManagement {
     }
     versionCatalogs {
         libs {
-            from files("$buildGradlePath/versions-basic.toml")
+            from files("$buildGradlePath/versions-cosmo.toml")
         }
     }
 }

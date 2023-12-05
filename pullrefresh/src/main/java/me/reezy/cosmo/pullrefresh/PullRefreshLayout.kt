@@ -14,7 +14,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.appbar.AppBarLayout.OnOffsetChangedListener
-import me.reezy.cosmo.pullrefresh.PullRefreshLayout.PullChecker
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -208,8 +207,6 @@ class PullRefreshLayout @JvmOverloads constructor(context: Context, attrs: Attri
     private fun offsetTo(distance: Int) {
         pullDistance = distance
         scrollTo(0, -pullDistance)
-//        header.translationY = pullDistance.toFloat()
-//        content.translationY = pullDistance.toFloat()
 
         header.onPulling(distance)
         onPullingListener?.onPulling(distance)
