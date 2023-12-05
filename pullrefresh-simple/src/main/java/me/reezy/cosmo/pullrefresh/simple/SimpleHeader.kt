@@ -3,11 +3,13 @@ package me.reezy.cosmo.pullrefresh.simple
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.drawable.Animatable
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Animation
+import android.view.animation.Interpolator
 import android.view.animation.RotateAnimation
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,12 +25,6 @@ open class SimpleHeader @JvmOverloads constructor(context: Context, attrs: Attri
     private val vText: TextView by lazy { findViewById(R.id.text)!! }
 
     private var vSecondFloor: View? = null
-
-    private val anim = RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f).apply {
-        repeatCount = Animation.INFINITE
-        duration = 600
-        interpolator = AccelerateDecelerateInterpolator()
-    }
 
     override val loadingHeight: Int get() = vHeader.measuredHeight
     override val maximumPullRate: Float get() = if (vSecondFloor == null) 2.5f else 4f
@@ -54,13 +50,15 @@ open class SimpleHeader @JvmOverloads constructor(context: Context, attrs: Attri
 
     override fun onStateChanged(oldState: PullState, newState: PullState) {
 
-        anim.repeatCount = if (newState == PullState.Loading) Animation.INFINITE else 0
         vHeader.isVisible = newState != PullState.SecondFloor && newState != PullState.None
         vImage.isVisible = newState != PullState.SecondFloor && newState != PullState.SecondReady
 
         if (newState == PullState.Loading) {
-            vImage.startAnimation(anim)
+            vImage.play()
+        } else {
+            vImage.stop()
         }
+
         when (newState) {
             PullState.Pulling -> vText.setText(R.string.prl_simple_header_pulling)
             PullState.Ready -> vText.setText(R.string.prl_simple_header_ready)
@@ -70,5 +68,34 @@ open class SimpleHeader @JvmOverloads constructor(context: Context, attrs: Attri
             PullState.SecondReady -> vText.setText(R.string.prl_simple_header_second_ready)
             else -> {}
         }
+    }
+
+
+    private val spinner by lazy { createAnimation() }
+
+    private fun ImageView.play() {
+        val d = drawable ?: return
+        if (d is Animatable) {
+            clearAnimation()
+            d.start()
+        } else {
+            startAnimation(spinner)
+        }
+    }
+
+    private fun ImageView.stop() {
+        val d = drawable ?: return
+        if (d is Animatable) {
+            d.stop()
+        }
+        clearAnimation()
+    }
+
+    private fun createAnimation(): Animation {
+        val spinner = RotateAnimation(0f, 360f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f)
+        spinner.repeatCount = Animation.INFINITE
+        spinner.duration = 1000
+        spinner.interpolator = Interpolator { (it * 12).toInt() / 12f }
+        return spinner
     }
 }
